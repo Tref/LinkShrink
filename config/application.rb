@@ -25,5 +25,10 @@ module LinkShrink
 
     # add custom validators path
     # config.autoload_paths += %W["#{config.root}/app/validators/"]
+
+    config.autoload_paths << Rails.root.join('lib')
+    
+    config.assets.paths << "#{Rails.root}/app/assets/videos"
+    
   end
 end

@@ -1,0 +1,15 @@
+$('#error_expl').remove();
+$('.main-notice').hide();
+<% if @link.errors.any? %>
+  $(".welcome-form").prepend('<%= escape_javascript(render("shared/error_messages", formats: [:html], object: @link )) %>');
+  $('#error_expl').effect("highlight");
+<% else %>
+  $('.link-table tbody').html("<%= escape_javascript render(@links) %>");
+  link_row = $(".link-table").find("[data-row-id='" + <%= @link.id %> + "']");
+  $('html, body').animate({
+    scrollTop: $(link_row).offset().top
+  }, 2000 ).promise().done(function(){
+    $(link_row).effect("highlight", 1500);
+  });
+
+<% end %>

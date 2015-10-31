@@ -13,3 +13,77 @@
  *= require_tree .
  *= require_self
  */
+
+
+/* Globals
+-------------------------------------------------- */
+.welcome-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  /*background: url(polina.jpg) no-repeat;*/
+  background-size: cover; 
+}
+body .table {
+  background: rgba(255,255,255,.5);
+}
+.logo-container {
+  /*border-bottom: 1px solid #ECF0F1;*/
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 30px;
+  margin-bottom:50px;
+}
+.home-logo {
+  margin-top: 100px;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+/* Home Form
+-------------------------------------------------- */
+
+.welcome-form {
+  padding: 0 0 50px 0;
+  /*border-bottom: 1px solid #ECF0F1;*/
+  border-bottom: 1px solid #dadada;
+  margin-bottom: 50px;
+}
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 150px;
+}
+.footer {
+  border-top: 1px solid #ECF0F1;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: #f5f5f5;
+
+}
+
+.footer p.text-muted {
+    margin: 0;
+    padding: 40px 0 0 ;
+  }
+
+.link-table .loading {
+  display: none
+}

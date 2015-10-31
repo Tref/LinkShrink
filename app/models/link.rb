@@ -1,50 +1,25 @@
-module EncodeBase65
-  Base65_digits = [*("0".."9"), *("a".."z"), *("A".."Z"), "-", "_", "."].sort{|a,b| a <=> b}
-
-  def generate_urlsafe_base_65(base65n)
-    size = Base65_digits.size
-    decoded = decode(base65n) + 1
-    return encode(decoded)
-  end
-
-  private
-
-  def encode(number)
-    result = ''
-    charset_size = Base65_digits.size
-
-    begin
-      result << Base65_digits[number % charset_size]
-      puts "result #{number}"
-      puts "result: #{result}"
-      puts "number / charset_size: #{number / charset_size}"
-    end while (number /= charset_size) > 0
-
-    result.reverse
-  end
-
-  def decode(s)
-    charset_size = Base65_digits.size
-
-    s.chars.reduce(0) do |n, c|
-      n * charset_size + Base65_digits.index(c)
-    end
-  end
-
-end
-
 class Link < ActiveRecord::Base
   include ActiveModel::Validations
-  validates :full_url, :short_url, presence: true, uniqueness: true
-  validates :full_url, url: true
-  before_validation :shrink
   include EncodeBase65
+  validates :full_url, presence: true, url: true, uniqueness: true, allow_blank: false
+  validates :short_url, presence: true, uniqueness: true
+  before_validation :shrink, except: [:update]
+  scope :top_n, ->(n = 100) { order(access_count: :desc, created_at: :asc).limit(n) }
 
   private
 
     def shrink
-      last_link = Link.order(:created_at).last
-      self.short_url = last_link.generate_urlsafe_base_65(last_link.short_url)
+      if new_record?
+        if Link.count == 0
+          self.short_url = "-"
+        else
+          last_link = Link.order(:created_at).last
+          self.short_url = last_link.urlsafe_base65(last_link.short_url)
+        end
+      else
+        true
+      end
     end
+
 
 end

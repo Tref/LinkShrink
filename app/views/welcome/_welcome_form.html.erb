@@ -1,0 +1,12 @@
+<%= form_for @link, :html => { :class => "form-horizontal welcome-form", remote: true} do |f| %>
+
+<div class="input-group">
+  <%= f.label :full_url, :class => 'control-label sr-only' %>
+  <%= f.text_field :full_url, :class => 'form-control input-lg', placeholder: "Enter a URL you would like shrink." %>
+  <div class="input-group-btn">
+    <%= f.submit nil, :class => 'btn btn-lg btn-primary' %>
+  </div>
+  <%= error_span(@link[:full_url]) %>
+</div>
+
+<% end %>

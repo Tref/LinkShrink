@@ -1,0 +1,10 @@
+<tr data-row-id="<%= link.id %>">
+  <td>
+    <%= link_to link.full_url, link.full_url, target: "_blank"  %>
+  </td>
+  <td>
+    <%= link_to base_url(link.short_url), base_url(link.short_url), class: "short_url_link", remote: true  %>
+    <span class="loading"><i class="fa fa-cog fa-spin"></i> Loading URL...</span>
+  </td>
+  <td><%= link.access_count %></td>
+</tr>

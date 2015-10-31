@@ -21,3 +21,14 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      link:
+        full_url: "Link"
+    errors:
+      models:
+        link:
+          attributes:
+            full_url:
+              blank: "is required"
+              format: "must be a valid URL (eg. <i>'http://www.google.com'</i>)"

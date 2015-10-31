@@ -52,3 +52,7 @@ Additional Information:
 
 ==== One last thing:
 If you decide not to take on the bonus portion, and your database choice is compatible with Heroku then please push the application to Heroku.  Please do not make your database decision based on what Heroku is compatible with.
+
+===== Additional Features:
+- Click to copy on urls
+- Searchable, Paginated index page for all shortened urls

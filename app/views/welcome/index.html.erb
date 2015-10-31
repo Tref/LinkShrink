@@ -1,0 +1,17 @@
+<%= render 'welcome/welcome_form' %>
+
+<h2>100 Most Visited Links</h2>
+
+<table class="table table-striped table-bordered link-table">
+  <thead>
+    <tr>
+      <th>Full url</th>
+      <th>Short url</th>
+      <th>Clicks</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @links %>
+  </tbody>
+</table>

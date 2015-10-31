@@ -1,29 +1,47 @@
-<%= form_for(@link) do |f| %>
-  <% if @link.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h2>
+<%= form_for @link, :html => { :class => "" } do |f| %>
 
-      <ul>
-      <% @link.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @link.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@link.errors.count, "error") %> prohibited this link from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @link.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :full_url %><br>
-    <%= f.text_field :full_url %>
+  <div class="form-group">
+    <%= f.label :full_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :full_url, :class => 'form-control' %>
+    </div>
+    <%= error_span(@link[:full_url]) %>
   </div>
-  <div class="field">
-    <%= f.label :short_url %><br>
-    <%= f.text_field :short_url %>
+
+  <div class="form-group">
+    <%= f.label :short_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :short_url, :class => 'form-control', disabled: true %>
+    </div>
+    <%= error_span(@link[:short_url]) %>
   </div>
-  <div class="field">
-    <%= f.label :access_count %><br>
-    <%= f.number_field :access_count %>
+  
+  <div class="form-group">
+    <%= f.label :access_count, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :access_count, :class => 'form-control' %>
+    </div>
+    <%= error_span(@link[:access_count]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="actionss">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), links_path, :class => 'btn btn-default' %>
   </div>
+
 <% end %>
