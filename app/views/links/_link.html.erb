@@ -1,6 +1,6 @@
 <tr data-row-id="<%= link.id %>">
   <td>
-    <%= link_to link.full_url, link.full_url, target: "_blank"  %>
+    <%= link.full_url %>
   </td>
   <td>
     <%= link_to base_url(link.short_url), base_url(link.short_url), class: "short_url_link", remote: true  %>

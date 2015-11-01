@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  before_action :clear_flash, only: [:redirect]
+
   # GET /links
   # GET /links.json
   def index
@@ -26,15 +26,17 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-    
+
     respond_to do |format|
       if @link.save
-        @links = Link.order(access_count: :desc).order(created_at: :asc)
+        @links = Link.top_n
         format.html { redirect_to root_url, notice: 'Link was successfully created.' }
         format.js {}
       else
-        @links = Link.order(access_count: :desc).order(full_url: :asc)
-        format.html { render "welcome/index" }
+        @links = Link.top_n
+        render_action = request.referer.include?("links") ? :new : root_url
+        # render Rails.application.routes.recognize_path(request.referer)[:action] 
+        format.html { render render_action }
         format.js {}
       end
     end
@@ -95,7 +97,4 @@ class LinksController < ApplicationController
       params.require(:link).permit(:full_url, :access_count)
     end
 
-    def clear_flash
-      # flash.clear
-    end
 end

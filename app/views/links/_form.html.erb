@@ -1,4 +1,4 @@
-<%= form_for @link, :html => { :class => "" } do |f| %>
+<%= form_for @link, :html => { :class => "link-form" } do |f| %>
 
     <% if @link.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -20,7 +20,6 @@
     <div class="controls">
       <%= f.text_field :full_url, :class => 'form-control' %>
     </div>
-    <%= error_span(@link[:full_url]) %>
   </div>
 
   <div class="form-group">
@@ -28,15 +27,13 @@
     <div class="controls">
       <%= f.text_field :short_url, :class => 'form-control', disabled: true %>
     </div>
-    <%= error_span(@link[:short_url]) %>
   </div>
   
   <div class="form-group">
     <%= f.label :access_count, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :access_count, :class => 'form-control' %>
+      <%= f.text_field :access_count, :class => 'form-control', type: 'number' %>
     </div>
-    <%= error_span(@link[:access_count]) %>
   </div>
 
   <div class="actionss">

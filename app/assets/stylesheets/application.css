@@ -56,7 +56,12 @@ body .table {
   margin-bottom: 50px;
 }
 
+/* Other Forms
+-------------------------------------------------- */
 
+.has-error .help-block {
+  color: rgb(231, 76, 60);
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -86,4 +91,7 @@ body {
 
 .link-table .loading {
   display: none
+}
+.welcome .home-nav-link {
+  display: none;
 }
