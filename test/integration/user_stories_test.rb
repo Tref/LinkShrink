@@ -14,7 +14,6 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
   
   setup do
     @link = links(:one)
-    # @request.env['HTTP_REFERER'] = 'http://localhost:3000/links'
     @create = {
       full_url:       'http://newlink.com'
     }
@@ -27,8 +26,11 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template "index"
 
-    xml_http_request :post, '/links', {link: {full_url: @link.full_url}}, {'HTTP_REFERER' => 'http://localhost:3000'}
+    # send AJAX request
+    xml_http_request :post, shrink_url, {link: {full_url: @link.full_url}}, {'HTTP_REFERER' => 'http://localhost:3000'}
     assert_response :success
+
+    # 
 
   end
 end
