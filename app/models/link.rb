@@ -4,8 +4,7 @@ class Link < ActiveRecord::Base
   validates :full_url, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false, url: true
   validates :short_url, presence: true, uniqueness: true
   before_validation :shrink, except: [:update]
-  # before_validation Proc.new {|record| record.full_url = record.full_url.downcase  }
-  # before_validation :downcase_url
+  before_validation Proc.new {|record| record.full_url = record.full_url.downcase  }
   scope :top_n, ->(n = 100) { order(access_count: :desc, created_at: :asc).limit(n) }
 
 
@@ -27,10 +26,5 @@ class Link < ActiveRecord::Base
         true
       end
     end
-
-    def downcase_url
-      self.full_url = self.full_url.downcase
-    end
-
 
 end
