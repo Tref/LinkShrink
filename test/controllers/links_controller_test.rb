@@ -24,6 +24,8 @@ class LinksControllerTest < ActionController::TestCase
     assert_difference('Link.count') do
       post :create, link: @create
     end
+    
+    assert_not_nil assigns(:link).short_url
 
     assert_redirected_to link_path(assigns(:link))
   end
@@ -51,12 +53,6 @@ class LinksControllerTest < ActionController::TestCase
     assert_redirected_to links_path
   end
 
-  # testing for redirection
-  test "should redirect link" do
-    get :redirect, short_url: @link.short_url
-    
-    assert_not_nil assigns(:link)
-    assert_response :redirect
-  end
+
 
 end

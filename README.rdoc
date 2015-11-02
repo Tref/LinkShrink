@@ -57,3 +57,4 @@ If you decide not to take on the bonus portion, and your database choice is comp
 - Click to copy on urls
 - Searchable, Paginated index page for all shortened urls
 - Pull title and screenshot from linked site
+- add authentication to /links admin section

@@ -13,7 +13,8 @@ $(document).on "page:change", ->
   clip = new ZeroClipboard($('#d_clip_button'))
 
 $(document).on 'click', '#d_clip_button', (e) ->
-  $(this).removeClass('btn-info').addClass('btn-success').text("Copied!").effect("highlight", 1500)
+  $(this).removeClass('btn-info').addClass('btn-success').html("<i class='fa fa-check'></i>&nbsp;&nbsp;Copied!").effect("highlight", 1500)
+  $('.input-group-copy .fa-times').css('right', '165px')
   return
 
 $(document).on 'click', '.input-group-copy .fa-times', (e) ->

@@ -1,4 +1,5 @@
-<%= form_for @link, :html => { class: "form-horizontal welcome-form", remote: true} do |f| %>
+
+<%= form_for @link, url: shrink_path, :html => { class: "form-horizontal welcome-form", remote: true} do |f| %>
 
   <div class="input-group input-group-create">
     <%= f.label :full_url, class: 'control-label sr-only' %>
@@ -26,3 +27,4 @@
   </div>
 
 <% end %>
+

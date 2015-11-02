@@ -5,8 +5,13 @@ class Link < ActiveRecord::Base
   validates :short_url, presence: true, uniqueness: true
   before_validation :shrink, except: [:update]
   # before_validation Proc.new {|record| record.full_url = record.full_url.downcase  }
-  before_validation :downcase_url
+  # before_validation :downcase_url
   scope :top_n, ->(n = 100) { order(access_count: :desc, created_at: :asc).limit(n) }
+
+
+  def self.insensitive_find_or_create(params)
+    where(full_url: params[:full_url].downcase).first_or_initialize
+  end
 
   protected
 

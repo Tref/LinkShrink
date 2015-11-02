@@ -25,22 +25,15 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    # byebug
-    url = link_params[:full_url].downcase
-    @link = Link.find_or_initialize_by(full_url: url)
-    new_record = @link.new_record?
+    @link = Link.new(link_params)
+
     respond_to do |format|
-      if @link.valid? && @link.save
-        @links = Link.top_n
-        # byebug
-        redirect_action = request.env['HTTP_REFERER'].include?("links") ? link_url(@link) : root_url
-        format.html { redirect_to redirect_action, notice: 'Link was successfully created.' }
-        format.js { flash.now[:notice] = 'Link was successfully created.'}
+      if @link.save
+        format.html { redirect_to @link, notice: 'Link was successfully created.' }
+        format.json { render :show, status: :created, location: @product }
       else
-        @links = Link.top_n
-        render_action = request.env['HTTP_REFERER'].include?("links") ? :new : root_url
-        format.html { render render_action }
-        format.js {}
+        format.html { render :new }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -66,20 +59,6 @@ class LinksController < ApplicationController
     end
   end
 
-  def redirect
-    @link = Link.find_by(short_url: params[:short_url])
-    respond_to do |format|
-      if @link && @link.update(access_count: @link.access_count + 1)
-        @links = Link.top_n
-        format.html { redirect_to @link.full_url, status: 301 }
-        format.js {}
-      else
-        @links = Link.top_n
-        format.html { redirect_to root_url, flash: {error: "Oops! we couldn't find that link. Please try again or regenerate another URL."} }
-        format.js {}
-      end
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

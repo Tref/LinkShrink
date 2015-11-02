@@ -1,0 +1,30 @@
+
+// Remove existing notifications
+$('#error_expl, .main-notice').remove();
+
+// IF FAILED
+<% if @link.new_record? %> 
+  // show errors
+  $(".welcome-form").prepend('<%= escape_javascript(render("shared/error_messages", formats: [:html], object: @link )) %>');
+  $('#error_expl').effect("highlight");
+
+// IF SUCCESS
+<% else %>  
+  
+  // show notices
+  $(".logo-container").after('<%= escape_javascript( bootstrap_flash(class: "main-notice") ) %>');
+  
+  // hide form and show copy field
+  $('.input-group-create, .input-group-copy').toggle();
+  
+  // set the value of the copy field
+  $('#shortened_url').val("<%= base_url(@link.short_url) %>").attr("disabled", true);
+
+  // render the table row with the new link if its in the top 100
+  <% if @links.include?(@link) %>
+    $('.link-table tbody').html("<%= escape_javascript render(@links) %>");
+    link_row = $(".link-table").find("[data-row-id='" + <%= @link.id %> + "']");
+    $(link_row).effect("highlight", 1500); 
+  <% end %>
+
+<% end %>
