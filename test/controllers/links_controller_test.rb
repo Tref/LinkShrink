@@ -3,6 +3,10 @@ require 'test_helper'
 class LinksControllerTest < ActionController::TestCase
   setup do
     @link = links(:one)
+    @request.env['HTTP_REFERER'] = 'http://localhost:3000/links'
+    @create = {
+      full_url:       'http://newlink.com'
+    }
   end
 
   test "should get index" do
@@ -18,7 +22,8 @@ class LinksControllerTest < ActionController::TestCase
 
   test "should create link" do
     assert_difference('Link.count') do
-      post :create, link: { access_count: @link.access_count, full_url: @link.full_url, short_url: @link.short_url }
+      # byebug
+      post :create, link: @create
     end
 
     assert_redirected_to link_path(assigns(:link))
@@ -47,3 +52,8 @@ class LinksControllerTest < ActionController::TestCase
     assert_redirected_to links_path
   end
 end
+
+# setup do
+#   @request.env['HTTP_REFERER'] = 'http://localhost:3000/sessions/new'
+#   post :create, { :user => { :email => 'invalid@abc' } }, {}
+# end

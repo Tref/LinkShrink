@@ -26,15 +26,16 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-
+    
     respond_to do |format|
       if @link.save
         @links = Link.top_n
-        format.html { redirect_to root_url, notice: 'Link was successfully created.' }
-        format.js {}
+        redirect_action = request.env['HTTP_REFERER'].include?("links") ? link_url(@link) : root_url
+        format.html { redirect_to redirect_action, notice: 'Link was successfully created.' }
+        format.js { flash.now[:notice] = 'Link was successfully created.'}
       else
         @links = Link.top_n
-        render_action = request.referer.include?("links") ? :new : root_url
+        render_action = request.env['HTTP_REFERER'].include?("links") ? :new : root_url
         format.html { render render_action }
         format.js {}
       end
@@ -64,24 +65,16 @@ class LinksController < ApplicationController
 
   def redirect
     @link = Link.find_by(short_url: params[:short_url])
-    raise ActiveRecord::RecordNotFound if @link.nil?
-    @link.access_count += 1
     respond_to do |format|
-      if @link.update(access_count: @link.access_count)
+      if @link && @link.update(access_count: @link.access_count + 1)
         @links = Link.top_n
         format.html { redirect_to @link.full_url, status: 301 }
         format.js {}
       else
         @links = Link.top_n
-        format.html { render root_url, notice: "Sorry, we had a problem processing your request. Please try again or regenerate another URL." }
+        format.html { redirect_to root_url, flash: {error: "Oops! we couldn't find that link. Please try again or regenerate another URL."} }
         format.js {}
       end
-    end
-  rescue ActiveRecord::RecordNotFound
-    flash_msg = "Oops, we couldn't find that link. Please check the link and try again."
-    respond_to do |format|
-      format.html {redirect_to root_url, flash: {error: flash_msg}}
-      format.js {flash.now[:error] = flash_msg}
     end
   end
 

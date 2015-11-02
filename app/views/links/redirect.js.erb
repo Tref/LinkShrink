@@ -3,12 +3,9 @@ $('.main-notice').hide();
 
 <% if flash.any? %>
   $(".logo-container").after('<%= escape_javascript( bootstrap_flash ) %>');
-
-
 <% end %>
 
 <% if @link  %>
-
   <% if @link.errors.any? %>
     $(".welcome-form").prepend('<%= escape_javascript(render("shared/error_messages", formats: [:html], object: @link )) %>');
     $('#error_expl').effect("highlight");
@@ -16,17 +13,12 @@ $('.main-notice').hide();
     $('.link-table tbody').html("<%= escape_javascript render(@links) %>");
     link_row = $(".link-table").find("[data-row-id='" + <%= @link.id %> + "']");
     $(link_row).find('.short_url_link, .loading').toggle();
-    // $(link_row).find('.loading').show();
-    $('html, body').animate({
-      scrollTop: $(link_row).offset().top
-    }, 2000 ).promise().done(function(){
-      $(link_row).effect("highlight", 1500, function(){
-        setTimeout(function(){
-          window.location = '<%= @link.full_url %>';
-        }, 2000)
-      }, true);
-    });
+
+    $(link_row).effect("highlight", 1500, function(){
+      setTimeout(function(){
+        window.location = '<%= @link.full_url %>';
+      }, 1000)
+    }, true);
 
   <% end %>
-
 <% end %>

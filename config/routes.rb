@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :links
-  get ':short_url' => 'links#redirect'
+  get ':short_url' => 'links#redirect', :constraints => { :short_url => /[^\/]+/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
