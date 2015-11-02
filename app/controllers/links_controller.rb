@@ -35,7 +35,6 @@ class LinksController < ApplicationController
       else
         @links = Link.top_n
         render_action = request.referer.include?("links") ? :new : root_url
-        # render Rails.application.routes.recognize_path(request.referer)[:action] 
         format.html { render render_action }
         format.js {}
       end
