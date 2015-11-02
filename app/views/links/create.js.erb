@@ -3,17 +3,12 @@ $('.main-notice').hide();
 
 <% if flash.any? %>
   $(".logo-container").after('<%= escape_javascript( bootstrap_flash(class: "main-notice") ) %>');
-<% end %>
-
-<% if @link.errors.any? %>
+<% elsif @link.errors.any? %>
   $(".welcome-form").prepend('<%= escape_javascript(render("shared/error_messages", formats: [:html], object: @link )) %>');
   $('#error_expl').effect("highlight");
-<% else %>
+<% end %>
   
-  setTimeout(function(){
-    $('.main-notice').slideUp();
-  }, 10000);
-  
+  <% unless @link.errors.any? %>
   $('.input-group-create, .input-group-copy').toggle();
   link_field = $('#shortened_url');
   link_field.val("<%= base_url(@link.short_url) %>").attr("disabled", true);
@@ -24,5 +19,5 @@ $('.main-notice').hide();
     link_row = $(".link-table").find("[data-row-id='" + <%= @link.id %> + "']");
     $(link_row).effect("highlight", 1500); 
   <% end %>
-  
+
 <% end %>

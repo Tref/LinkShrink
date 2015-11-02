@@ -25,11 +25,14 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    @link = Link.new(link_params)
-    
+    # byebug
+    url = link_params[:full_url].downcase
+    @link = Link.find_or_initialize_by(full_url: url)
+    new_record = @link.new_record?
     respond_to do |format|
-      if @link.save
+      if @link.valid? && @link.save
         @links = Link.top_n
+        # byebug
         redirect_action = request.env['HTTP_REFERER'].include?("links") ? link_url(@link) : root_url
         format.html { redirect_to redirect_action, notice: 'Link was successfully created.' }
         format.js { flash.now[:notice] = 'Link was successfully created.'}

@@ -1,12 +1,14 @@
 class Link < ActiveRecord::Base
   include ActiveModel::Validations
   include EncodeBase65
-  validates :full_url, presence: true, url: true, uniqueness: true, allow_blank: false
+  validates :full_url, presence: true, uniqueness: {case_sensitive: false}, allow_blank: false, url: true
   validates :short_url, presence: true, uniqueness: true
   before_validation :shrink, except: [:update]
+  # before_validation Proc.new {|record| record.full_url = record.full_url.downcase  }
+  before_validation :downcase_url
   scope :top_n, ->(n = 100) { order(access_count: :desc, created_at: :asc).limit(n) }
 
-  private
+  protected
 
     def shrink
       if new_record?
@@ -19,6 +21,10 @@ class Link < ActiveRecord::Base
       else
         true
       end
+    end
+
+    def downcase_url
+      self.full_url = self.full_url.downcase
     end
 
 

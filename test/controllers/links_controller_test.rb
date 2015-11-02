@@ -22,7 +22,6 @@ class LinksControllerTest < ActionController::TestCase
 
   test "should create link" do
     assert_difference('Link.count') do
-      # byebug
       post :create, link: @create
     end
 
@@ -51,9 +50,13 @@ class LinksControllerTest < ActionController::TestCase
 
     assert_redirected_to links_path
   end
-end
 
-# setup do
-#   @request.env['HTTP_REFERER'] = 'http://localhost:3000/sessions/new'
-#   post :create, { :user => { :email => 'invalid@abc' } }, {}
-# end
+  # testing for redirection
+  test "should redirect link" do
+    get :redirect, short_url: @link.short_url
+    
+    assert_not_nil assigns(:link)
+    assert_response :redirect
+  end
+
+end
