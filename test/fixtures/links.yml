@@ -2,7 +2,7 @@
 
 one:
   full_url: http://google.com
-  short_url: 00
+  short_url: '00'
   access_count: 1
 
 two:

@@ -30,7 +30,6 @@ class WelcomeController < ApplicationController
         format.html { redirect_to @link.full_url, status: 301 }
         format.js {}
       else
-        @links = Link.top_n
         format.html { redirect_to root_url, flash: {error: "Oops! we couldn't find that link. Please try again or regenerate another URL."} }
         format.js {}
       end
