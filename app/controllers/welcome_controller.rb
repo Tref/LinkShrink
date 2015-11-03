@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    @link = Link.insensitive_find_or_create(clean_params)
+    @link = Link.insensitive_find_or_init(clean_params)
     
     respond_to do |format|
       if @link.save

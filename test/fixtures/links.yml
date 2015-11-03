@@ -2,10 +2,10 @@
 
 one:
   full_url: http://google.com
-  short_url: abc
+  short_url: 00
   access_count: 1
 
 two:
   full_url: http://apple.com
-  short_url: def
+  short_url: ff
   access_count: 0
