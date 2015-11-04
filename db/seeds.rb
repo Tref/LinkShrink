@@ -20,6 +20,7 @@
     rescue ActiveRecord::RecordInvalid => invalid
       puts "ActiveRecord::RecordInvalid: #{invalid}" 
       p invalid.record
+    end
   end
 
 
