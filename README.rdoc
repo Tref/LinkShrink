@@ -14,9 +14,6 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 * Deployment instructions
 
-* ...
-
-
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
@@ -54,7 +51,9 @@ Additional Information:
 If you decide not to take on the bonus portion, and your database choice is compatible with Heroku then please push the application to Heroku.  Please do not make your database decision based on what Heroku is compatible with.
 
 ===== Additional Features:
-- Click to copy on urls
 - Searchable, Paginated index page for all shortened urls
 - Pull title and screenshot from linked site
 - add authentication to /links admin section
+- Populate database with migration rather than existing db/seeds.rb file
+- Better integration testing with RSpec, Capybara
+- Better on-site redirection UX
