@@ -99,11 +99,13 @@ task :uptime do
   end
 end
 
-# desc "Rake db:seed"
-# task :seed, :roles => :app, :except => { :no_release => true } do
-#   run "cd #{deploy_to}/current"
-#   run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
-# end
+desc "Rake db:seed"
+task :seed do
+  on roles(:app), except: {no_release: true} do |role|
+    execute "cd /home/deploy/linkshrink/current"
+    execute "bundle exec rake db:seed RAILS_ENV=production"
+  end
+end
 
 # role :demo, %w{example.com example.org example.net}
 # task :seed do
@@ -115,43 +117,36 @@ end
 
 
 
-namespace :rake do
+# namespace :rake do
 
-  # DB TASKS
-  namespace :db do
-    %w[create migrate reset rollback seed setup].each do |command|
-      desc "Rake db:#{command}"
-      task command do
-        on roles(:app), except: {no_release: true} do
-          run "cd #{deploy_to}/current"
-          run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
-        end
-      end
-    end
+#   namespace :db do
 
-    # desc "Rake db:seed"
-    # task :seed do
-    #   on roles(:app), except: {no_release: true} do
-    #     # run "cd #{deploy_to}/current"
-    #     # run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
-    #     # run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
-    #   end
-    # end
+#     %w[create migrate reset rollback seed setup].each do |command|
+#       desc "Rake db:#{command}"
+#       task command do
+#         on roles(:app), except: {no_release: true} do
+#           run "cd #{deploy_to}/current"
+#           run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
+#         end
+#       end
+#     end
 
-  end
+#   end
 
-  # ASSET PRECOMPILE AND CLEAN TASK
-  # namespace :assets do
-  #   %w[precompile clean].each do |command|
-  #     desc "Rake assets:#{command}"
-  #     task command, roles: :app, except: {no_release: true} do
-  #       run "cd #{deploy_to}/current"
-  #       run "bundle exec rake assets:#{ENV['task']} RAILS_ENV=#{rails_env}"
-  #     end
-  #   end
-  # end
+  
+#   namespace :assets do
 
-end
+#     %w[precompile clean].each do |command|
+#       desc "Rake assets:#{command}"
+#       task command, roles: :app, except: {no_release: true} do
+#         run "cd #{deploy_to}/current"
+#         run "bundle exec rake assets:#{ENV['task']} RAILS_ENV=#{rails_env}"
+#       end
+#     end
+
+#   end
+
+# end
 
 
 
