@@ -72,6 +72,7 @@ The flow logic of validating unique, case-sensitive urls, and subsequent encodin
 - Implement new Russian doll caching on top 100 list
 - Use configuration file for deployment & configuration environment variables
 - Implement auto-generated short_urls with DB locking
+- A longer README
 
 ### Contributing
 New feature requests are welcome, code is more welcome still. Code must include testing (where applicable).
