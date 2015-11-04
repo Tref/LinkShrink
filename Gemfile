@@ -60,9 +60,9 @@ group :development do
 
 end
 
-group :production do
-  gem 'mysql2'
-end
+
+
+
 
 
 # ADDITIONAL GEMS
@@ -72,3 +72,4 @@ gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-boot
 gem 'zeroclipboard-rails'
 gem 'figaro'
 gem 'puma'
+gem 'mysql2'
