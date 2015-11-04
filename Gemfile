@@ -41,7 +41,7 @@ end
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
-  
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -59,6 +59,11 @@ group :development do
   gem 'capistrano-rbenv'  
 
 end
+
+group :production do
+  gem 'mysql2'
+end
+
 
 # ADDITIONAL GEMS
 gem "therubyracer"
