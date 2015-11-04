@@ -11,7 +11,7 @@ set :branch, :master
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
-set :deploy_to, '/home/deploy/linkshrink'
+set :deploy_to, '/home/deploy/LinkShrink'
 
 
 # Default value for :scm is :git
@@ -46,7 +46,7 @@ set :keep_releases, 5
 
 # RBENV https://github.com/capistrano/rbenv/
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, 'ruby 2.2.3p173'
+set :rbenv_ruby, '2.2.3'
 
 # in case you want to set ruby version from the file:
 # set :rbenv_ruby, File.read('.ruby-version').strip
