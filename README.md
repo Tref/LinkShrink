@@ -18,6 +18,7 @@ In order to set up the application clone the repository:
 
 then cd into the application root and run
 
+
  bundle install
 
 
