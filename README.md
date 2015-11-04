@@ -52,12 +52,14 @@ If you would like to include the seed data in your production application run th
  cap production rails:rake:db:seed
 ```
 ### Challenges and Design Decisions
-**Creating url_safe encoding scheme using the least possible characters:**
+**Challenge 1: Creating url_safe encoding scheme using the least possible characters:**
+
 Originally I had intended to to SecureRandom::urlsafe_base64. The problem with this encoding scheme is that the length of the result string is about 4/3 of the first argument n which specifies the length, in bytes, of the random number to be generated. The issue with this is that the random number generated is at least two characters long which is not the 'least possible characters'.
 
 In order to implement this I created my own simple base65 encoding module with a url safe character set and three methods to encode and decode full_urls against this scheme. Although this method creates short_urls effectively it does so serially, not randomly rather than serially.
 
-**Validating unique full_urls with case-sensitivity**
+**Challenge 2: Validating unique full_urls with case-sensitivity**
+
 The flow logic of validating unique, case-sensitive urls, and subsequent encoding and validating of short_urls though manageable. had a bit more logic than I expected. I made the design decision to downcase all full urls before validating them and sending them to the database.
 
 ### Future Improvements
