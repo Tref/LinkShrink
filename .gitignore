@@ -21,4 +21,4 @@ notes.txt
 *.psd
 
 config/database.yml
-config/application.yml
+# config/application.yml
