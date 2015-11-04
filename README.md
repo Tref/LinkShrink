@@ -51,8 +51,14 @@ If you would like to include the seed data in your production application run th
 ```
  cap production rails:rake:db:seed
 ```
-### Challenges
-* Creating url_safe encoding scheme using the least possible characters.
+### Challenges and Design Decisions
+**Creating url_safe encoding scheme using the least possible characters:**
+Originally I had intended to to SecureRandom::urlsafe_base64. The problem with this encoding scheme is that the length of the result string is about 4/3 of the first argument n which specifies the length, in bytes, of the random number to be generated. The issue with this is that the random number generated is at least two characters long which is not the 'least possible characters'.
+
+In order to implement this I created my own simple base65 encoding module with a url safe character set and three methods to encode and decode full_urls against this scheme. Although this method creates short_urls effectively it does so serially, not randomly rather than serially.
+
+**Validating unique full_urls with case-sensitivity**
+The flow logic of validating unique, case-sensitive urls, and subsequent encoding and validating of short_urls though manageable. had a bit more logic than I expected. I made the design decision to downcase all full urls before validating them and sending them to the database.
 
 ### Future Improvements
 - Searchable, Paginated index page for all shortened urls
@@ -63,14 +69,15 @@ If you would like to include the seed data in your production application run th
 - Better on-site redirection UX
 - Implement new Russian doll caching on top 100 list
 - Use configuration file for deployment & configuration environment variables
+- Implement auto-generated short_urls with DB locking
 
 ### Contributing
-
 New feature requests are welcome, code is more welcome still. Code must include testing (where applicable).
 
 
 
-<!-- ### Full Stack Challenge:
+<!--
+### Full Stack Challenge:
 
 Your mission, should you choose to accept it, is to build a URL shortener.
 
@@ -101,5 +108,5 @@ Your mission, should you choose to accept it, is to build a URL shortener.
 * The Bonus section is for those of you with a bit more operations experience. Given a blank server, how would you set it up from scratch?  Custom bash scripts?  Chef?  Capistrano tasks?
 
 ### One last thing:
-If you decide not to take on the bonus portion, and your database choice is compatible with Heroku then please push the application to Heroku.  Please do not make your database decision based on what Heroku is compatible with. -->
-
+If you decide not to take on the bonus portion, and your database choice is compatible with Heroku then please push the application to Heroku.  Please do not make your database decision based on what Heroku is compatible with.
+-->
