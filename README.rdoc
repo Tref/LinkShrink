@@ -32,9 +32,10 @@ rake db:seed
 
 === Testing
 
-LinkShrink utilizes Minitest::Test to implement a suite of cursory unit, functional and integration tests. After installing the application and running the appropriate migrations. Run the following rake task in order to set up your test database run the test cases:
+LinkShrink utilizes Minitest::Test to implement a suite of cursory unit, functional and integration tests. After installing the application and running the appropriate migrations. First, copy the example database file and enter in your database configuration details. Then run the following rake task in order to set up your test database run the test cases:
 
 ```
+cp config/database.example.yml config/database.yml
 RAILS_ENV=test rake db:create
 rake test
 ```
