@@ -1,4 +1,3 @@
-require 'byebug'
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
@@ -88,66 +87,6 @@ namespace :deploy do
   end
 
 end
-
-# server 'example.com', roles: [:web, :app]
-# server 'example.org', roles: [:db, :workers]
-desc "Report Uptimes"
-task :uptime do
-  on roles(:all) do |host|
-    execute :any_command, "with args", :here, "and here"
-    info "Host #{host} (#{host.roles.to_a.join(', ')}):\t#{capture(:uptime)}"
-  end
-end
-
-desc "Rake db:seed"
-task :seed do
-  on roles(:app), except: {no_release: true} do |role|
-    execute "cd /home/deploy/linkshrink/current"
-    execute "bundle exec rake db:seed RAILS_ENV=production"
-  end
-end
-
-# role :demo, %w{example.com example.org example.net}
-# task :seed do
-#   on roles(:demo), in: :parallel do |host|
-#     uptime = capture(:uptime)
-#     puts "#{host.hostname} reports: #{uptime}"
-#   end
-# end
-
-
-
-# namespace :rake do
-
-#   namespace :db do
-
-#     %w[create migrate reset rollback seed setup].each do |command|
-#       desc "Rake db:#{command}"
-#       task command do
-#         on roles(:app), except: {no_release: true} do
-#           run "cd #{deploy_to}/current"
-#           run "bundle exec rake db:#{ENV['task']} RAILS_ENV=#{rails_env}"
-#         end
-#       end
-#     end
-
-#   end
-
-  
-#   namespace :assets do
-
-#     %w[precompile clean].each do |command|
-#       desc "Rake assets:#{command}"
-#       task command, roles: :app, except: {no_release: true} do
-#         run "cd #{deploy_to}/current"
-#         run "bundle exec rake assets:#{ENV['task']} RAILS_ENV=#{rails_env}"
-#       end
-#     end
-
-#   end
-
-# end
-
 
 
 
