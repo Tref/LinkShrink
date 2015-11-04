@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :application, 'LinkShrink'
+set :application, 'linkshrink'
 set :repo_url, 'https://github.com/Tref/LinkShrink.git'
 
 # Default branch is :master
@@ -11,7 +11,7 @@ set :branch, :master
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
-set :deploy_to, '/home/deploy/LinkShrink'
+set :deploy_to, '/home/deploy/linkshrink'
 
 
 # Default value for :scm is :git
