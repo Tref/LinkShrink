@@ -58,7 +58,6 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rbenv'  
 
-  gem "therubyracer"
 end
 
 group :production do
@@ -67,7 +66,7 @@ end
 
 
 # ADDITIONAL GEMS
-
+gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'master'
 gem 'zeroclipboard-rails'
