@@ -25,11 +25,15 @@ class Link < ActiveRecord::Base
           self.short_url = "-"
         else
           last_link = Link.order(:created_at).last
-          puts "self"
+          puts "self before"
           p self
           puts "last link"
           p last_link
-          self.short_url = last_link.urlsafe_base65(last_link.short_url)
+          short = last_link.urlsafe_base65(last_link.short_url)
+          p "short_url: #{short}"
+          self.short_url = short
+          puts "self after"
+          p self
         end
       else
         true
