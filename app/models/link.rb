@@ -8,7 +8,7 @@ class Link < ActiveRecord::Base
   before_validation :shrink, except: [:update], if: Proc.new { |link| link.full_url.present? }
   # only downcase if full_url exists
   before_validation Proc.new {|record| record.full_url = record.full_url.downcase unless record.full_url.blank?}
-  scope :top_n, ->(n = 100) { order(access_count: :desc, created_at: :asc).limit(n) }
+  scope :top_n, ->(n = 100) { order(access_count: :desc, id: :asc).limit(n) }
 
 
   def self.insensitive_find_or_init(params)
@@ -24,16 +24,8 @@ class Link < ActiveRecord::Base
         if Link.count == 0
           self.short_url = "-"
         else
-          last_link = Link.order(:created_at).last
-          puts "self before"
-          p self
-          puts "last link"
-          p last_link
-          short = last_link.urlsafe_base65(last_link.short_url)
-          p "short_url: #{short}"
-          self.short_url = short
-          puts "self after"
-          p self
+          last_link = Link.order(id: :asc).last
+          self.short_url = last_link.urlsafe_base65(last_link.short_url)
         end
       else
         true
